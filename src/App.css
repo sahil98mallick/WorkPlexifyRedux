@@ -1,38 +1,219 @@
-.App {
+.restable {
+  width: 100%;
+  border-collapse: collapse;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.restable td,
+.restable th {
+  padding: 12px 15px;
+  border: 1px solid #979595;
+  text-align: center;
+  font-size: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.restable td.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+  width: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.restable th {
+  background: #D6DBE6;
+  color: #0e0d0d;
+}
+
+.restable tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Pagination Design*/
+#paginationdesign {
+  padding: 5px;
+}
+
+.pagination {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.pagination li {
+  margin: 0 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.pagination a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #505457;
+  border: 1px solid #a5afb9;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.pagination .active a,
+.pagination a:hover {
+  background-color: #167df4;
+  color: #fff;
+  border-color: #ffffff;
+}
+
+.pagination .disabled a {
+  pointer-events: none;
+  background-color: #ddd;
+  color: #777;
+  border-color: #ddd;
+}
+
+.invoice-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 8px;
+}
+
+.company-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  max-width: 120px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+.invoice-header {
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  color: #333;
+}
+
+.invoice-header h2 {
+  margin: 0 0 10px 0;
+  color: #4CAF50;
+}
+
+.invoice-body {
+  margin-bottom: 30px;
+}
+
+.billed-to {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+table th {
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+table td {
+  padding: 10px;
+  word-break: break-word;
+}
+
+.total-calculation {
+  text-align: right;
+}
+
+.total-calculation p {
+  margin: 0;
+}
+
+.total-calculation h3 {
+  margin: 0;
+  color: #4CAF50;
+}
+
+.invoice-footer {
+  border-top: 2px solid #4CAF50;
+  padding-top: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#activitycontents:hover {
+  scale: 1.1;
+}
+
+/*responsive*/
+
+@media(max-width: 500px) {
+  .restable thead {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+  .restable,
+  .restable tbody,
+  .restable tr,
+  .restable td {
+    display: block;
+    width: 100%;
+  }
+
+  .restable tr {
+    margin-bottom: 15px;
+  }
+
+  .restable td {
+    text-align: right;
+    padding-left: 50%;
+    text-align: right;
+    position: relative;
+  }
+
+  .restable td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+@media print {
+
+  #main {
+    position: absolute;
+    left: 50;
+    top: 60px;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  #header {
+    display: none !important;
+  }
+
+  #expensenavbar {
+    display: none;
+  }
+
+  .welcome {
+    display: none;
+  }
+
+  .print-button {
+    display: none;
   }
 }
