@@ -109,18 +109,16 @@ const Login = () => {
                           <div className="col-4">
                             {
                               isLoading ? (
-                                <><button className="btn btn-secondary w-100" type="submit" disabled>Loading.....</button></>
+                                <><button className="btn btn-secondary w-100" type="submit" disabled>Loading...</button></>
                               ) : (
                                 <><button className="btn btn-primary w-100" type="submit">Login</button></>
                               )
                             }
                           </div>
                         </center>
-
                         <div style={{ display: "flex", justifyContent: "space-evenly", textAlign: "center" }}>
-
                           <div className="col-6">
-                            <p className="small mb-0"><Link to='/Register'>Create Accounts</Link></p>
+                            <p className="small mb-0"><Link to='/Register'>Create Account</Link></p>
                           </div>
                           <div className="col-6">
                             <p className="small mb-0"><Link to='/ResetPassword'>Forgot Password</Link></p>

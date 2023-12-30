@@ -46,7 +46,7 @@ const Register = () => {
                                 <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                                     <div className="d-flex justify-content-center py-4">
                                         <a className="logo d-flex align-items-center w-auto">
-                                            <img src="/assets/logo/workplexifylogo.png" alt />
+                                        <img src="assets/img/WorkPlexifyLogo5.png" alt="loginimage" />
                                             <span className="d-none d-lg-block">Work-Plexify</span>
                                         </a>
                                     </div>
@@ -108,7 +108,7 @@ const Register = () => {
                                                 </center>
                                                 <div style={{ display: "flex", justifyContent: "space-evenly", textAlign: "center" }}>
                                                     <div className="col-6">
-                                                        <p className="small mb-0"><Link to='/'>Login Here</Link></p>
+                                                        <p className="small mb-0"><Link to='/'>Login</Link></p>
                                                     </div>
                                                     <div className="col-6">
                                                         <p className="small mb-0"><Link to='/ResetPassword'>Forgot Password</Link></p>
