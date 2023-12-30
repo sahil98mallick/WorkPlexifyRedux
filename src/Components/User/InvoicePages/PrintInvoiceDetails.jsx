@@ -84,9 +84,15 @@ const PrintInvoiceDetails = () => {
                       </p>
                     </div>
                     <div class="invoice-body">
-                      <div class="billed-to">
-                        <strong>BILLED TO:</strong>
-                        <p><b>Client Name:</b> <i>{getClientName(singleinvoice.client)}</i></p>
+                      <div id='billtooandform'>
+                        <div class="billed-to">
+                          <strong>BILLED From:</strong>
+                          <p><b>Name:</b> <i>{auth?.user?.name}</i></p>
+                        </div>
+                        <div class="billed-to">
+                          <strong>BILLED T0:</strong>
+                          <p><b>Name:</b> <i>{getClientName(singleinvoice.client)}</i></p>
+                        </div>
                       </div>
 
                       <table class="restable">

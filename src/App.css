@@ -152,6 +152,11 @@ table td {
   scale: 1.1;
 }
 
+#billtooandform {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /*responsive*/
 
 @media(max-width: 500px) {
