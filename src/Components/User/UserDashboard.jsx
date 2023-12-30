@@ -314,9 +314,9 @@ const UserDashboard = () => {
                                                             <div className="activite-label">
                                                                 <i style={{ color: "black" }}></i>
                                                                 <b>{item?.enddate?.slice(0, 10)}</b></div>&nbsp;
-                                                            <i className="bi bi-circle-fill activity-badge text-warning align-self-start" />&nbsp;
+                                                            <i className="bi bi-circle-fill activity-badge text-danger align-self-start" />&nbsp;
                                                             <div className="activity-content" id='activitycontents'>
-                                                                {item?.jobid} <sup style={{ color: "red" }}>Completed</sup>
+                                                                {item?.jobid?.slice(0, 20)} <sup style={{ color: "red" }}>Completed</sup>
                                                                 <br />
                                                                 <Link to={`/ViewSingleTaskDetails/${item?._id}`} className="fw-bold text-primary">&nbsp;View <i class="bi bi-arrow-bar-right"></i></Link>
                                                             </div>
