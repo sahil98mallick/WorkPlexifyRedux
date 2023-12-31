@@ -52,38 +52,51 @@ const ViewTaskDetails = () => {
   // Delete task  Details Function
   const deletetaskdetails = async (id) => {
     try {
-      const deletedata = await AxiosInstance.delete(`jobdetails/deletejob/${id}`);
-      if (deletedata?.data?.success) {
-        // toast.success(deletedata.data.message)
-        Swal.fire({
-          icon: 'success',
-          title: deletedata?.data?.message,
-          text: deletedata?.data?.message,
-          timer: 2000,
-          showConfirmButton: false,
-        })
-        dispatch(fetchprojectdetails(auth?.user?._id));
-      } else {
-        // toast.error(deletedata.data.message)
-        Swal.fire({
-          icon: 'error',
-          title: deletedata.data.message,
-          text: deletedata.data.message,
-          timer: 2000,
-          showConfirmButton: false,
-        })
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this client record!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      });
+
+      if (result.isConfirmed) {
+        const deletedata = await AxiosInstance.delete(`jobdetails/deletejob/${id}`);
+        if (deletedata.data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: deletedata.data.message,
+            text: deletedata.data.message,
+            timer: 1000,
+            showConfirmButton: false,
+          });
+          dispatch(fetchprojectdetails(auth?.user?._id));
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: deletedata.data.message,
+            text: deletedata.data.message,
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
       }
     } catch (error) {
-      // toast.error(error.message)
+      // toast.error(error.message);
       Swal.fire({
-        icon: 'warning',
-        title: error.message,
-        text: error.message,
+        icon: 'error',
+        title: error,
         timer: 2000,
         showConfirmButton: false,
-      })
+      });
+    } finally {
+      dispatch(fetchprojectdetails(auth?.user?._id));
     }
   }
+
+
   // Function to update task active status
   const [task, settask] = useState([]);
   const handleStatusChange = async (taskiId, newStatus) => {
@@ -113,6 +126,9 @@ const ViewTaskDetails = () => {
   const sortedProjects = filteredprojects
     .slice()
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+
+
   // Pagination Code
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -200,7 +216,7 @@ const ViewTaskDetails = () => {
                                           background: item.jobstatus ? 'red' : 'green',
                                           color: "white", fontFamily: "Times"
                                         }} className='btn btn-success btn-sm'><i class="bi bi-toggle-on"></i></button>&nbsp;
-                                      <button className='btn btn-success btn-sm'><i class="bi bi-pencil"></i></button>&nbsp;
+                                      <Link to={`/UpdateTaskDetails/${item?._id}`} className='btn btn-success btn-sm'><i class="bi bi-pencil"></i></Link>&nbsp;
                                       <button className='btn btn-primary btn-sm'><i class="bi bi-eye-fill"></i></button>&nbsp;
                                       <button onClick={() => { deletetaskdetails(item._id) }} className='btn btn-danger btn-sm'><i class="bi bi-trash3-fill"></i></button>
                                     </div>

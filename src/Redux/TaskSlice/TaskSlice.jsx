@@ -97,8 +97,10 @@ const taskSlice = createSlice({
             state.loading = true
         });
         builder.addCase(fetchpsinglerojectdetails.fulfilled, (state, action) => {
-            state.singleprojects = action.payload
-            state.loading = false
+            if (action.payload) {
+                state.singleprojects = action.payload
+                state.loading = false
+            }
         });
         builder.addCase(fetchpsinglerojectdetails.rejected, (state, action) => {
             state.loading = false

@@ -24,9 +24,10 @@ import SearchJobDetails from './Components/User/SearchJobDetails/SearchJobDetail
 import AdminDashboard from './Components/Admin/AdminDashboard';
 import AdminClients from './Components/Admin/Clients/AdminClients';
 import Adminusers from './Components/Admin/Users/Adminusers';
+import UpdateTaskDetails from './Components/User/UserTaskManager/UpdateTaskDetails';
 
 function App() {
-  const [auth, setauth] = useAuth();
+  const [auth] = useAuth();
 
   function PrivateRoute({ children }) {
     const token = localStorage.getItem("authenticate") || sessionStorage.getItem("authenticate");
@@ -71,6 +72,10 @@ function App() {
     {
       path: "/ViewTaskDetails",
       components: <ViewTaskDetails />
+    },
+    {
+      path: "/UpdateTaskDetails/:id",
+      components: <UpdateTaskDetails />
     },
     {
       path: "/CompletedTaskdetails",

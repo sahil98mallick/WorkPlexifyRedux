@@ -29,7 +29,7 @@ const AddTaskDetails = () => {
   const onSubmit = async (data) => {
     data.userID = auth?.user?._id
     data.jobstatus = "true"
-    // console.log(data);
+    console.log(data);
     setsaveload(true)
     try {
       const response = await AxiosInstance.post("jobdetails/addjobdetails", data)
