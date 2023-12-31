@@ -109,13 +109,17 @@ const ViewTaskDetails = () => {
     }
   };
 
+  // Sort projects in descending order based on createdAt
+  const sortedProjects = filteredprojects
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   // Pagination Code
-  const itemsPerPage = 4;
+  const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredprojects.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPageCount = Math.ceil(filteredprojects.length / itemsPerPage);
+  const currentItems = sortedProjects.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPageCount = Math.ceil(sortedProjects.length / itemsPerPage);
   const paginate = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPageCount) {
       setCurrentPage(pageNumber);
@@ -173,7 +177,7 @@ const ViewTaskDetails = () => {
                           currentItems?.map((item, key) => {
                             return (
                               <>
-                                <tr>
+                                <tr key={key}>
                                   <td data-label="Job ID"><Link to={`/ViewSingleTaskDetails/${item?._id}`}>{item?.jobid?.slice(0, 25)}</Link></td>
                                   <td data-label="Client Name">{getClientName(item.clientname)}</td>
                                   <td data-label="Start Date">{item.startdate?.slice(0, 10)}</td>
