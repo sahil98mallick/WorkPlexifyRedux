@@ -77,21 +77,19 @@ const PrintInvoiceDetails = () => {
                   <div class="invoice-container">
                     <img src="https://cdn-icons-png.flaticon.com/512/2534/2534203.png" alt="Company Logo" class="company-logo" />
                     <div class="invoice-header">
-                      <h2>Work Plexify</h2>
-                      <p>Invoice No. {singleinvoice?.invoiceID}</p>
-                      <p>Date: {singleinvoice?.invoiceDate?.slice(0, 10)}<br />
-                        Created Time: {singleinvoice?.invoiceDate?.slice(11, 19)}
-                      </p>
+                      <h3><b>Work Plexify</b></h3>
+                      <p>Name: <b>{auth?.user?.name}</b>  <br /> Invoice No. <b>{singleinvoice?.invoiceID}</b> <br /> Date: <b>{singleinvoice?.invoiceDate?.slice(0, 10)}</b>
+                        <br /> Created Time: <b>{singleinvoice?.invoiceDate?.slice(11, 19)}</b></p>
                     </div>
                     <div class="invoice-body">
                       <div id='billtooandform'>
                         <div class="billed-to">
-                          <strong>BILLED From:</strong>
-                          <p><b>Name:</b> <i>{auth?.user?.name}</i></p>
+                          <strong>From:</strong>
+                          <p><i>{auth?.user?.name}</i></p>
                         </div>
                         <div class="billed-to">
-                          <strong>BILLED T0:</strong>
-                          <p><b>Name:</b> <i>{getClientName(singleinvoice.client)}</i></p>
+                          <strong>To:</strong>
+                          <p><i>{getClientName(singleinvoice.client)}</i></p>
                         </div>
                       </div>
 
@@ -110,11 +108,11 @@ const PrintInvoiceDetails = () => {
                             matchingJobsDetails?.map((item, key) => {
                               return (
                                 <tr>
-                                  <td data-label="Job ID">{item?.jobid}</td>
+                                  <td data-label="Job ID" className='testwrap'>{item?.jobid}</td>
                                   <td data-label="Quantity">1</td>
                                   <td data-label="Start Date">{item?.startdate?.slice(0, 10)}</td>
                                   <td data-label="End Date">{item?.enddate?.slice(0, 10)}</td>
-                                  <td data-label="Total Price">{item?.actualprice}</td>
+                                  <td data-label="Total Price"><b>{item?.actualprice}</b></td>
                                 </tr>
                               )
                             })
@@ -123,15 +121,15 @@ const PrintInvoiceDetails = () => {
                       </table>
 
                       <div class="total-calculation">
-                        <hr /><br />
-                        <h3><b>Total: {singleinvoice?.totalAmount}</b></h3>
+                        <hr />
+                        <h3><b>Total: {singleinvoice?.totalAmount} / inr</b></h3>
                       </div>
                     </div>
 
                     <div class="invoice-footer">
                       <h4>Thank you!</h4>
-                      <p>Visit Again with Work-Plexify</p>
                     </div>
+                    <p className='notes'><i><b>Note:</b></i> This is System generaterd Mail, No Physical signature is required.</p>
                     <center>
                       <button className='btn btn-primary print-button' onClick={handlePrint}>
                         <i class="bi bi-printer-fill"></i>

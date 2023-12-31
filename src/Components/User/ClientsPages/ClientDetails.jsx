@@ -14,6 +14,8 @@ import { BeatLoader } from 'react-spinners'
 
 const ClientDetails = () => {
     const [saveload, setsaveload] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredclients, setfilteredclientss] = useState([]);
     const [auth,] = useAuth();
     const dispatch = useDispatch()
     const { clients, loading } = useSelector((state) => state.client)
@@ -24,6 +26,14 @@ const ClientDetails = () => {
         }
     }, [dispatch, auth?.user?._id])
 
+    useEffect(() => {
+        // Filter Income based on searchTerm
+        const filteredData = clients?.filter(item =>
+            item?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            item?.email?.toLowerCase().includes(searchTerm?.toLowerCase())
+        );
+        setfilteredclientss(filteredData);
+    }, [searchTerm, clients]);
 
     // Add Client Details
     const { register, formState: { errors }, handleSubmit, setValue } = useForm();
@@ -115,8 +125,8 @@ const ClientDetails = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = clients.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPageCount = Math.ceil(clients.length / itemsPerPage);
+    const currentItems = filteredclients.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPageCount = Math.ceil(filteredclients.length / itemsPerPage);
     const paginate = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPageCount) {
             setCurrentPage(pageNumber);
@@ -188,6 +198,10 @@ const ClientDetails = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">All Client Details</h5>
+                                    <div style={{ display: "flex", justifyContent: "flex-end", paddingBottom: "15px" }}>
+                                        <input type="text" className='form-control' placeholder='Search Here' onChange={(e) => setSearchTerm(e.target.value)}
+                                            style={{ width: "300px" }} />
+                                    </div>
                                     {loading ? (
                                         <>
                                             <center>

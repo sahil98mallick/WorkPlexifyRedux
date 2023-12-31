@@ -14,7 +14,9 @@ import { fetchalluserwriters } from '../../../Redux/WriterSlice/WriterSlice';
 
 const ViewTaskDetails = () => {
   const [auth,] = useAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredprojects, setfilteredprojectss] = useState([]);
   const { projects, loading } = useSelector((state) => state.task)
   const { clients } = useSelector((state) => state.client);
   const { writers } = useSelector((state) => state.writer)
@@ -27,7 +29,15 @@ const ViewTaskDetails = () => {
     }
   }, [dispatch, auth?.user?._id])
 
-  // console.log("Projects", projects);
+  useEffect(() => {
+    // Filter Income based on searchTerm
+    const filteredData = projects?.filter(item =>
+      item?.jobid.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      item?.startdate.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      item?.enddate.toLowerCase().includes(searchTerm?.toLowerCase())
+    );
+    setfilteredprojectss(filteredData);
+  }, [searchTerm, projects]);
 
   // Fetch the Client Name here
   const getClientName = (clientId) => {
@@ -76,7 +86,6 @@ const ViewTaskDetails = () => {
   }
   // Function to update task active status
   const [task, settask] = useState([]);
-
   const handleStatusChange = async (taskiId, newStatus) => {
     try {
       const data = { jobstatus: newStatus };
@@ -99,6 +108,20 @@ const ViewTaskDetails = () => {
       console.error('Error updating status:', error);
     }
   };
+
+  // Pagination Code
+  const itemsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredprojects.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPageCount = Math.ceil(filteredprojects.length / itemsPerPage);
+  const paginate = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPageCount) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -116,7 +139,8 @@ const ViewTaskDetails = () => {
 
         <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "10px" }}>
           <Link to='/AddTaskDetails' type="button" class="btn btn-primary">Add New Projects</Link>
-          <input type="text" className='form-control' placeholder='Search Here' style={{ width: "300px" }} />
+          <input type="text" className='form-control' placeholder='Search Here' onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: "300px" }} />
         </div>
         {/* Main Contents */}
         {
@@ -146,11 +170,11 @@ const ViewTaskDetails = () => {
                       </thead>
                       <tbody>
                         {
-                          projects?.map((item, key) => {
+                          currentItems?.map((item, key) => {
                             return (
                               <>
                                 <tr>
-                                  <td data-label="Job ID"><Link to={`/ViewSingleTaskDetails/${item?._id}`}>{item?.jobid?.slice(0, 20)}..</Link></td>
+                                  <td data-label="Job ID"><Link to={`/ViewSingleTaskDetails/${item?._id}`}>{item?.jobid?.slice(0, 25)}</Link></td>
                                   <td data-label="Client Name">{getClientName(item.clientname)}</td>
                                   <td data-label="Start Date">{item.startdate?.slice(0, 10)}</td>
                                   <td data-label="End Date">{item.enddate?.slice(0, 10)}</td>
@@ -184,6 +208,30 @@ const ViewTaskDetails = () => {
                         }
                       </tbody>
                     </table>
+                    <br />
+                    <div id='paginationdesign'>
+                      <nav aria-label="Page navigation example">
+                        <ul className="pagination">
+                          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                            <a className="page-link" href="#" onClick={() => paginate(currentPage - 1)}>
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          {Array.from({ length: totalPageCount }, (_, index) => (
+                            <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                              <a className="page-link" href="#" onClick={() => paginate(index + 1)}>
+                                {index + 1}
+                              </a>
+                            </li>
+                          ))}
+                          <li className={`page-item ${currentPage === totalPageCount ? 'disabled' : ''}`}>
+                            <a className="page-link" href="#" onClick={() => paginate(currentPage + 1)}>
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </>
                 ) : (
                   <>

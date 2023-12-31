@@ -12,6 +12,11 @@
   font-size: 16px;
 }
 
+.testwrap {
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
 .restable td.wrap-text {
   white-space: normal;
   word-wrap: break-word;
@@ -70,7 +75,7 @@
 }
 
 .invoice-container {
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -92,8 +97,8 @@
 
 .invoice-header {
   border-bottom: 2px solid #4CAF50;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   position: relative;
   color: #333;
 }
@@ -104,11 +109,11 @@
 }
 
 .invoice-body {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .billed-to {
-  margin-bottom: 20px;
+  /* margin-bottom: 5px; */
 }
 
 table {
@@ -131,6 +136,10 @@ table td {
 .total-calculation {
   text-align: right;
 }
+.notes{
+  font-size: 10px;
+  text-align: center;
+}
 
 .total-calculation p {
   margin: 0;
@@ -138,7 +147,7 @@ table td {
 
 .total-calculation h3 {
   margin: 0;
-  color: #4CAF50;
+  color: #ef2005;
 }
 
 .invoice-footer {
@@ -154,7 +163,9 @@ table td {
 
 #billtooandform {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
 }
 
 /*responsive*/
@@ -183,6 +194,11 @@ table td {
     position: relative;
   }
 
+  .testwrap {
+    word-wrap: normal;
+    max-width: 100%;
+  }
+
   .restable td::before {
     content: attr(data-label);
     position: absolute;
@@ -200,7 +216,7 @@ table td {
   #main {
     position: absolute;
     left: 50;
-    top: 60px;
+    top: 0px;
     margin: auto;
     width: 100%;
     height: 100%;

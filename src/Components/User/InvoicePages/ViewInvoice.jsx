@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 
 const ViewInvoice = () => {
   const [auth,] = useAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { invoices, loading } = useSelector((state) => state.invoice)
   const { clients } = useSelector((state) => state.client);
   useEffect(() => {
@@ -22,6 +22,7 @@ const ViewInvoice = () => {
       dispatch(fetchalluserclients(auth?.user?._id))
     }
   }, [dispatch, auth?.user?._id])
+
 
   // Fetch the Client Name here
   const getClientName = (clientId) => {

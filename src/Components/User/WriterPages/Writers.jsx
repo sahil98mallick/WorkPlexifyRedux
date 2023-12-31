@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom'
 const Writers = () => {
     const [saveload, setsaveload] = useState(false)
     const [auth,] = useAuth();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredwriter, setfilteredwriters] = useState([]);
     const dispatch = useDispatch()
     const { writers, loading } = useSelector((state) => state.writer)
 
@@ -22,6 +24,15 @@ const Writers = () => {
             dispatch(fetchalluserwriters(auth?.user?._id))
         }
     }, [dispatch, auth?.user?._id])
+
+    useEffect(() => {
+        // Filter Income based on searchTerm
+        const filteredData = writers?.filter(item =>
+            item?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+            item?.email?.toLowerCase().includes(searchTerm?.toLowerCase())
+        );
+        setfilteredwriters(filteredData);
+    }, [searchTerm, writers]);
 
 
     // Add writer Details
@@ -104,8 +115,8 @@ const Writers = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = writers.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPageCount = Math.ceil(writers.length / itemsPerPage);
+    const currentItems = filteredwriter.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPageCount = Math.ceil(filteredwriter.length / itemsPerPage);
     const paginate = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPageCount) {
             setCurrentPage(pageNumber);
@@ -176,6 +187,10 @@ const Writers = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">All Writers Details</h5>
+                                    <div style={{ display: "flex", justifyContent: "flex-end", paddingBottom: "15px" }}>
+                                        <input type="text" className='form-control' placeholder='Search Here' onChange={(e) => setSearchTerm(e.target.value)}
+                                            style={{ width: "300px" }} />
+                                    </div>
                                     {
                                         loading ? (
                                             <><center>
