@@ -11,7 +11,7 @@ const Register = () => {
     const onSubmit = async (data) => {
         console.log(data);
         data.userType = "User"
-        data.activestatus = true;
+        data.activestatus = false;
         setisloading(true)
         try {
             const formData = new FormData();
@@ -46,7 +46,7 @@ const Register = () => {
                                 <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                                     <div className="d-flex justify-content-center py-4">
                                         <a className="logo d-flex align-items-center w-auto">
-                                        <img src="assets/img/WorkPlexifyLogo5.png" alt="loginimage" />
+                                            <img src="assets/img/WorkPlexifyLogo5.png" alt="loginimage" />
                                             <span className="d-none d-lg-block">Work-Plexify</span>
                                         </a>
                                     </div>
