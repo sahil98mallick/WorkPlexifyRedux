@@ -122,10 +122,25 @@ const ViewTaskDetails = () => {
     }
   };
 
-  // Sort projects in descending order based on createdAt
+  // // Sort projects in descending order based on createdAt
+  // const sortedProjects = filteredprojects
+  //   .slice()
+  //   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  // Sort projects with active status first, then by createdAt in descending order
   const sortedProjects = filteredprojects
     .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    .sort((a, b) => {
+      // First, sort by active status (true first)
+      if (b.jobstatus && !a.jobstatus) {
+        return 1;
+      } else if (!b.jobstatus && a.jobstatus) {
+        return -1;
+      }
+
+      // If active status is the same, then sort by createdAt
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
 
 
 
